@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import "./Attendance.css";
 
-const API = "https://rma-website.onrender.com";
+const API = import.meta.env.VITE_API_URL;
 
 function Attendance() {
   const [events, setEvents] = useState([]);
