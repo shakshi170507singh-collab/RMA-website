@@ -1,0 +1,1024 @@
+/* =========================================================
+   GLOBAL BACKGROUND
+========================================================= */
+
+body {
+    margin: 0;
+
+    background:
+        radial-gradient(
+            circle at top right,
+            #5B21B6 0%,
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at bottom left,
+            #2D1B69 0%,
+            transparent 40%
+        ),
+        linear-gradient(
+            135deg,
+            #09090F,
+            #161B33,
+            #2A145C
+        );
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+    min-height: 88vh;
+
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 50px;
+
+    padding: 105px 8% 80px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    box-sizing: border-box;
+
+    background:
+        radial-gradient(
+            circle at 85% 30%,
+            rgba(91, 33, 182, 0.55),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 10% 85%,
+            rgba(45, 27, 105, 0.55),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #09090F,
+            #161B33,
+            #2A145C
+        );
+
+    color: white;
+}
+
+
+/* =========================================================
+   MATHEMATICAL GRID
+========================================================= */
+
+.hero::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,0.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,0.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 48px 48px;
+
+    opacity: 0.45;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   DECORATIVE MATH SYMBOLS
+========================================================= */
+
+.hero::after {
+    content: "π     ∑     ∫     √     ∞";
+
+    position: absolute;
+
+    right: 5%;
+    top: 18%;
+
+    font-family: serif;
+
+    font-size: 32px;
+
+    color: rgba(255,255,255,0.07);
+
+    letter-spacing: 25px;
+
+    white-space: nowrap;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   HERO CONTENT
+========================================================= */
+
+.hero-content {
+    flex: 1;
+
+    max-width: 620px;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+/* SMALL LABEL IF YOU HAVE ONE */
+
+.hero-content .eyebrow {
+    display: inline-block;
+
+    margin-bottom: 15px;
+
+    color: #D4A017;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   HEADING
+========================================================= */
+
+.hero-content h1 {
+    margin: 0 0 20px;
+
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: clamp(
+        3.2rem,
+        5.2vw,
+        5.3rem
+    );
+
+    line-height: 0.98;
+
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: 2px;
+}
+
+
+/* GOLD SECOND LINE */
+
+.hero-content h1 span {
+    display: block;
+
+    margin-top: 8px;
+
+    color: #D4A017;
+
+    font-size: 0.55em;
+
+    line-height: 1.1;
+
+    letter-spacing: 1px;
+
+    text-transform: none;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.hero-content p {
+    max-width: 560px;
+
+    margin: 0 0 35px;
+
+    font-family: "Bodoni Moda", serif;
+
+    font-size: clamp(
+        15px,
+        1.4vw,
+        18px
+    );
+
+    line-height: 1.8;
+
+    color: #CBD5E1;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.hero-buttons {
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+    flex-wrap: wrap;
+}
+
+
+/* PRIMARY */
+
+.primary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 15px 34px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #D4A017;
+    color: white;
+
+    font-size: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition: .35s;
+}
+
+.primary-btn:hover {
+    transform: translateY(-4px);
+
+    background: #f3bc27;
+
+    color: white;
+
+    box-shadow: 0 18px 35px rgba(212,160,23,.35);
+}
+/* SECONDARY */
+
+.secondary-btn {
+    padding: 13px 30px;
+
+    border-radius: 10px;
+
+    border: 1px solid rgba(255,255,255,0.3);
+
+    background: rgba(255,255,255,0.03);
+
+    backdrop-filter: blur(10px);
+
+    color: white;
+
+    font-family:
+        "Gill Sans",
+        "Gill Sans MT",
+        Calibri,
+        "Trebuchet MS",
+        sans-serif;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        border-color 0.3s ease,
+        color 0.3s ease;
+}
+
+.secondary-btn:hover {
+    background: rgba(255,255,255,0.10);
+
+    border-color: #D4A017;
+
+    color: #FFD56A;
+
+    transform: translateY(-4px);
+}
+
+
+/* =========================================================
+   HERO IMAGE
+========================================================= */
+
+.hero-image {
+    flex: 1;
+
+    min-width: 0;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+/* IMAGE */
+
+.hero-image img {
+    position: relative;
+
+    z-index: 3;
+
+    width: min(430px, 100%);
+
+    max-width: 100%;
+
+    height: auto;
+
+    margin-top: 15px;
+
+    border-radius: 18px;
+
+    object-fit: contain;
+
+    filter: drop-shadow(
+        0 30px 35px rgba(0,0,0,0.35)
+    );
+
+    animation: float 5s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   IMAGE GLOW
+========================================================= */
+
+.glow {
+    position: absolute;
+
+    width: min(420px, 80vw);
+
+    height: min(420px, 80vw);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(139,92,246,0.65),
+            transparent 70%
+        );
+
+    filter: blur(65px);
+
+    opacity: 0.55;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   IMAGE FLOAT
+========================================================= */
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+}
+
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.stats {
+    position: relative;
+
+    z-index: 5;
+
+    width: min(85%, 1150px);
+
+    margin: -45px auto 65px;
+
+    display: flex;
+
+    justify-content: space-around;
+
+    align-items: center;
+
+    padding: 18px 20px;
+
+    box-sizing: border-box;
+
+    background: rgba(255,255,255,0.90);
+
+    backdrop-filter: blur(22px);
+
+    -webkit-backdrop-filter: blur(22px);
+
+    border-radius: 20px;
+
+    border: 1px solid rgba(255,255,255,0.75);
+
+    box-shadow:
+        0 18px 40px rgba(0,0,0,0.20),
+        0 0 50px rgba(255,255,255,0.22);
+}
+
+
+/* =========================================================
+   STAT CARD
+========================================================= */
+
+.card {
+    flex: 1;
+
+    min-width: 0;
+
+    text-align: center;
+
+    position: relative;
+
+    padding: 5px 15px;
+
+    transition:
+        transform 0.35s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+
+/* NUMBER */
+
+.card h2 {
+    margin: 0 0 3px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #5B21B6,
+            #D4A017
+        );
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    background-clip: text;
+
+    font-size: clamp(
+        1.6rem,
+        2.5vw,
+        2.4rem
+    );
+
+    font-weight: 700;
+
+    line-height: 1.1;
+
+    transition:
+        transform 0.3s ease;
+}
+
+.card:hover h2 {
+    transform: scale(1.06);
+}
+
+
+/* LABEL */
+
+.card p {
+    margin: 0;
+
+    color: #6B7280;
+
+    font-size: 13px;
+
+    font-weight: 500;
+
+    line-height: 1.4;
+}
+
+
+/* DIVIDER */
+
+.card:not(:last-child)::after {
+    content: "";
+
+    position: absolute;
+
+    right: 0;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 1px;
+
+    height: 38px;
+
+    background: rgba(76,29,149,0.15);
+}
+
+
+/* =========================================================
+   MATH STRIP
+========================================================= */
+
+.math-strip {
+    width: 100%;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            90deg,
+            #24103F,
+            #32125A,
+            #24103F
+        );
+
+    padding: 15px 0;
+
+    border-top: 1px solid rgba(255,255,255,0.08);
+
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+
+    white-space: nowrap;
+
+    box-sizing: border-box;
+}
+
+
+.math-track {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 60px;
+
+    width: max-content;
+
+    animation:
+        marquee 25s linear infinite;
+}
+
+
+.math-track span {
+    flex-shrink: 0;
+
+    font-family: serif;
+
+    font-size: 1.8rem;
+
+    color: #D4A017;
+
+    font-weight: 600;
+
+    transition:
+        color 0.3s ease,
+        transform 0.3s ease;
+}
+
+
+.math-track span:hover {
+    color: white;
+
+    transform: scale(1.1);
+}
+
+
+/* =========================================================
+   MARQUEE
+========================================================= */
+
+@keyframes marquee {
+
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+
+}
+
+
+/* =========================================================
+   LARGE LAPTOP
+========================================================= */
+
+@media (max-width: 1200px) {
+
+    .hero {
+        padding-left: 6%;
+        padding-right: 6%;
+
+        gap: 30px;
+    }
+
+    .hero-content h1 {
+        font-size: clamp(
+            3.2rem,
+            5vw,
+            4.5rem
+        );
+    }
+
+    .hero-image img {
+        width: min(380px, 100%);
+    }
+
+    .stats {
+        width: 90%;
+    }
+
+    .math-track {
+        gap: 55px;
+
+        animation-duration: 24s;
+    }
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 992px) {
+
+    .hero {
+        min-height: auto;
+
+        flex-direction: column;
+
+        justify-content: center;
+
+        text-align: center;
+
+        padding:
+            120px
+            30px
+            70px;
+
+        gap: 45px;
+    }
+
+
+    .hero-content {
+        max-width: 700px;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+    }
+
+
+    .hero-content h1 {
+        font-size: clamp(
+            3rem,
+            8vw,
+            4rem
+        );
+    }
+
+
+    .hero-content p {
+        max-width: 650px;
+    }
+
+
+    .hero-buttons {
+        justify-content: center;
+    }
+
+
+    .hero-image {
+        width: 100%;
+
+        max-width: 500px;
+    }
+
+
+    .hero-image img {
+        width: min(340px, 75vw);
+
+        margin-top: 0;
+    }
+
+
+    .glow {
+        width: 330px;
+        height: 330px;
+    }
+
+
+    .hero::after {
+        right: -20px;
+
+        top: 30%;
+
+        font-size: 25px;
+
+        letter-spacing: 15px;
+
+        opacity: 0.6;
+    }
+
+
+    .stats {
+        width: 90%;
+
+        margin:
+            -30px auto
+            55px;
+
+        padding: 15px;
+    }
+
+
+    .math-track {
+        gap: 35px;
+
+        animation-duration: 20s;
+    }
+
+
+    .math-track span {
+        font-size: 1.5rem;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .hero {
+        min-height: auto;
+
+        padding:
+            105px
+            20px
+            55px;
+
+        gap: 35px;
+    }
+
+
+    /* HEADING */
+
+    .hero-content h1 {
+        font-size: clamp(
+            2.6rem,
+            12vw,
+            3.4rem
+        );
+
+        line-height: 0.98;
+
+        letter-spacing: 1px;
+
+        margin-bottom: 16px;
+    }
+
+
+    .hero-content h1 span {
+        font-size: 0.52em;
+
+        margin-top: 8px;
+    }
+
+
+    /* DESCRIPTION */
+
+    .hero-content p {
+        font-size: 15px;
+
+        line-height: 1.75;
+
+        margin-bottom: 27px;
+
+        padding: 0 5px;
+    }
+
+
+    /* BUTTONS */
+
+    .hero-buttons {
+        width: 100%;
+
+        flex-direction: column;
+
+        gap: 12px;
+    }
+
+
+    .primary-btn,
+    .secondary-btn {
+        width: min(100%, 280px);
+
+        padding:
+            13px
+            22px;
+
+        font-size: 14px;
+    }
+
+
+    /* IMAGE */
+
+    .hero-image {
+        width: 100%;
+    }
+
+
+    .hero-image img {
+        width: min(290px, 78vw);
+
+        border-radius: 14px;
+    }
+
+
+    .glow {
+        width: 280px;
+
+        height: 280px;
+
+        filter: blur(55px);
+    }
+
+
+    /* DECORATIVE SYMBOLS */
+
+    .hero::after {
+        right: -80px;
+
+        top: 43%;
+
+        font-size: 20px;
+
+        letter-spacing: 10px;
+
+        opacity: 0.45;
+    }
+
+
+    /* STATS */
+
+    .stats {
+        width: calc(100% - 30px);
+
+        margin:
+            -20px auto
+            40px;
+
+        padding: 12px 8px;
+
+        border-radius: 16px;
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        gap: 8px;
+    }
+
+
+    .card {
+        padding: 9px 5px;
+    }
+
+
+    .card h2 {
+        font-size: 1.55rem;
+    }
+
+
+    .card p {
+        font-size: 11px;
+    }
+
+
+    .card:not(:last-child)::after {
+        display: none;
+    }
+
+
+    /* MATH STRIP */
+
+    .math-strip {
+        padding: 11px 0;
+    }
+
+
+    .math-track {
+        gap: 25px;
+
+        animation-duration: 15s;
+    }
+
+
+    .math-track span {
+        font-size: 1.2rem;
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .hero {
+        padding:
+            95px
+            15px
+            45px;
+    }
+
+
+    .hero-content h1 {
+        font-size: 2.45rem;
+    }
+
+
+    .hero-content p {
+        font-size: 14px;
+    }
+
+
+    .hero-image img {
+        width: 250px;
+    }
+
+
+    .stats {
+        width: calc(100% - 20px);
+    }
+
+
+    .card h2 {
+        font-size: 1.4rem;
+    }
+
+
+    .card p {
+        font-size: 10px;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCE MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .hero-image img,
+    .math-track {
+        animation: none;
+    }
+
+}

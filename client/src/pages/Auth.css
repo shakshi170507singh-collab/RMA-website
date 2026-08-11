@@ -1,0 +1,406 @@
+/* =========================
+   AUTH PAGE
+========================= */
+
+.auth-page {
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 40px 20px;
+
+  position: relative;
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at top right,
+      #5b21b6 0%,
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at bottom left,
+      #2d1b69 0%,
+      transparent 40%
+    ),
+    linear-gradient(
+      135deg,
+      #09090f,
+      #161b33,
+      #2a145c
+    );
+
+  color: white;
+}
+
+
+/* Mathematical background */
+
+.auth-page::before {
+  content: "π     ∑     ∫     √     ∞     Δ";
+
+  position: absolute;
+
+  top: 15%;
+  left: 5%;
+
+  font-size: 50px;
+
+  letter-spacing: 35px;
+
+  color: rgba(255, 255, 255, 0.035);
+
+  white-space: nowrap;
+
+  transform: rotate(-8deg);
+
+  pointer-events: none;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.auth-card {
+  width: 100%;
+  max-width: 470px;
+
+  padding: 42px;
+
+  position: relative;
+  z-index: 2;
+
+  background: rgba(20, 14, 45, 0.78);
+
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  border-radius: 24px;
+
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.45),
+    0 0 60px rgba(91, 33, 182, 0.15);
+}
+
+
+/* =========================
+   BACK BUTTON
+========================= */
+
+.auth-back {
+  display: inline-block;
+
+  margin-bottom: 32px;
+
+  color: #cbd5e1;
+
+  text-decoration: none;
+
+  font-size: 14px;
+
+  transition: 0.3s;
+}
+
+.auth-back:hover {
+  color: #d4a017;
+
+  transform: translateX(-3px);
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.auth-header {
+  margin-bottom: 30px;
+}
+
+.auth-label {
+  margin: 0 0 10px;
+
+  color: #d4a017;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  letter-spacing: 3px;
+}
+
+.auth-header h1 {
+  margin: 0 0 10px;
+
+  font-family: "Cormorant Garamond", serif;
+
+  font-size: 3rem;
+
+  line-height: 1;
+
+  color: white;
+}
+
+.auth-header > p:last-child {
+  margin: 0;
+
+  color: #aeb7ca;
+
+  font-size: 14px;
+
+  line-height: 1.7;
+}
+
+
+/* =========================
+   INPUTS
+========================= */
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #e5e7eb;
+
+  font-size: 14px;
+
+  font-weight: 600;
+}
+
+.input-group input {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  height: 50px;
+
+  padding: 0 16px;
+
+  border-radius: 10px;
+
+  border: 1px solid rgba(255, 255, 255, 0.14);
+
+  outline: none;
+
+  background: rgba(255, 255, 255, 0.06);
+
+  color: white;
+
+  font-size: 14px;
+
+  transition: 0.3s;
+}
+
+.input-group input::placeholder {
+  color: #7d8496;
+}
+
+.input-group input:focus {
+  border-color: #d4a017;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  box-shadow:
+    0 0 0 3px rgba(212, 160, 23, 0.1);
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.auth-btn {
+  width: 100%;
+
+  height: 52px;
+
+  margin-top: 8px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: #d4a017;
+
+  color: white;
+
+  font-size: 15px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.auth-btn:hover {
+  background: #f3bc27;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 12px 30px rgba(212, 160, 23, 0.25);
+}
+
+.auth-btn:disabled {
+  opacity: 0.6;
+
+  cursor: not-allowed;
+
+  transform: none;
+
+  box-shadow: none;
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+.auth-message {
+  margin: 18px 0 0;
+
+  padding: 12px;
+
+  border-radius: 8px;
+
+  background: rgba(255, 255, 255, 0.06);
+
+  color: #f3bc27;
+
+  text-align: center;
+
+  font-size: 14px;
+}
+
+
+/* =========================
+   SWITCH
+========================= */
+
+.auth-switch {
+  margin-top: 28px;
+
+  padding-top: 22px;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+  text-align: center;
+}
+
+.auth-switch p {
+  margin: 0 0 8px;
+
+  color: #9299aa;
+
+  font-size: 13px;
+}
+
+.auth-switch a {
+  color: #d4a017;
+
+  text-decoration: none;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  transition: 0.3s;
+}
+
+.auth-switch a:hover {
+  color: #f3bc27;
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 768px) {
+
+  .auth-page {
+    padding: 30px 18px;
+  }
+
+  .auth-card {
+    max-width: 450px;
+
+    padding: 34px 28px;
+
+    border-radius: 20px;
+  }
+
+  .auth-header h1 {
+    font-size: 2.7rem;
+  }
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 480px) {
+
+  .auth-page {
+    padding: 20px 14px;
+  }
+
+  .auth-card {
+    padding: 28px 20px;
+
+    border-radius: 18px;
+  }
+
+  .auth-back {
+    margin-bottom: 25px;
+
+    font-size: 13px;
+  }
+
+  .auth-label {
+    font-size: 11px;
+
+    letter-spacing: 2px;
+  }
+
+  .auth-header h1 {
+    font-size: 2.4rem;
+  }
+
+  .auth-header > p:last-child {
+    font-size: 13px;
+  }
+
+  .input-group {
+    margin-bottom: 17px;
+  }
+
+  .input-group input {
+    height: 48px;
+  }
+
+  .auth-btn {
+    height: 50px;
+  }
+
+  .auth-page::before {
+    font-size: 30px;
+
+    letter-spacing: 18px;
+
+    top: 10%;
+  }
+
+}

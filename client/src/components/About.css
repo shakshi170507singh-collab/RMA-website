@@ -1,0 +1,400 @@
+/* =========================
+   ABOUT SECTION
+========================= */
+
+.about {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 80px;
+
+    padding: 110px 8%;
+
+    background: linear-gradient(
+        180deg,
+        #f8f6ff 0%,
+        #ffffff 100%
+    );
+
+    overflow: hidden;
+
+}
+
+
+/* =========================
+   IMAGE
+========================= */
+
+.about-image {
+
+    flex: 1.1;
+
+    min-width: 0;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    position: relative;
+
+}
+
+
+/* Purple glow behind image */
+
+.image-bg {
+
+    position: absolute;
+
+    width: 430px;
+
+    height: 430px;
+
+    border-radius: 50%;
+
+    background: #6D28D9;
+
+    filter: blur(100px);
+
+    opacity: .16;
+
+}
+
+
+/* Actual image */
+
+.about-image img {
+
+    width: 520px;
+
+    max-width: 100%;
+
+    height: auto;
+
+    object-fit: contain;
+
+    position: relative;
+
+    z-index: 2;
+
+    transition: .4s ease;
+
+}
+
+
+/* Slight hover */
+
+.about-image:hover img {
+
+    transform: scale(1.03);
+
+}
+
+
+/* =========================
+   CONTENT
+========================= */
+
+.about-content {
+
+    flex: 1;
+
+    max-width: 600px;
+
+}
+
+
+/* Small heading */
+
+.section-title {
+
+    color: #D4A017;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    letter-spacing: 3px;
+
+    margin: 0 0 15px;
+
+}
+
+
+/* Main heading */
+
+.about-content h2 {
+
+    color: #2E1065;
+
+    font-size: 3rem;
+
+    line-height: 1.2;
+
+    margin: 0 0 25px;
+
+}
+
+
+/* Paragraph */
+
+.about-text {
+
+    color: #6B7280;
+
+    font-size: 17px;
+
+    line-height: 1.9;
+
+    margin: 0 0 35px;
+
+}
+
+
+/* =========================
+   FEATURES
+========================= */
+
+.features {
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 14px;
+
+}
+
+
+.features div {
+
+    background: rgba(255, 255, 255, .8);
+
+    border: 1px solid rgba(76, 29, 149, .08);
+
+    border-radius: 12px;
+
+    padding: 14px 16px;
+
+    color: #4C1D95;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    box-shadow: 0 8px 20px rgba(46, 16, 101, .05);
+
+    transition: .3s ease;
+
+}
+
+
+.features div:hover {
+
+    transform: translateY(-4px);
+
+    background: #4C1D95;
+
+    color: white;
+
+    box-shadow: 0 12px 25px rgba(76, 29, 149, .18);
+
+}
+
+
+/* =========================
+   LARGE LAPTOP
+========================= */
+
+@media (max-width: 1200px) {
+
+    .about {
+
+        gap: 50px;
+
+        padding: 100px 6%;
+
+    }
+
+    .about-image img {
+
+        width: 450px;
+
+    }
+
+    .about-content h2 {
+
+        font-size: 2.6rem;
+
+    }
+
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 900px) {
+
+    .about {
+
+        flex-direction: column;
+
+        text-align: center;
+
+        gap: 50px;
+
+        padding: 90px 7%;
+
+    }
+
+
+    .about-image {
+
+        width: 100%;
+
+    }
+
+
+    .about-image img {
+
+        width: 430px;
+
+    }
+
+
+    .about-content {
+
+        max-width: 700px;
+
+    }
+
+
+    .about-text {
+
+        font-size: 16px;
+
+    }
+
+
+    .features {
+
+        text-align: left;
+
+    }
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .about {
+
+        padding: 70px 6%;
+
+        gap: 35px;
+
+    }
+
+
+    .about-image img {
+
+        width: 330px;
+
+    }
+
+
+    .image-bg {
+
+        width: 280px;
+
+        height: 280px;
+
+        filter: blur(75px);
+
+    }
+
+
+    .about-content h2 {
+
+        font-size: 2.2rem;
+
+        line-height: 1.25;
+
+    }
+
+
+    .about-text {
+
+        font-size: 15px;
+
+        line-height: 1.8;
+
+        margin-bottom: 28px;
+
+    }
+
+
+    .features {
+
+        grid-template-columns: 1fr;
+
+        gap: 12px;
+
+    }
+
+
+    .features div {
+
+        padding: 13px 15px;
+
+    }
+
+}
+
+
+/* =========================
+   SMALL PHONES
+========================= */
+
+@media (max-width: 380px) {
+
+    .about {
+
+        padding: 60px 5%;
+
+    }
+
+
+    .about-image img {
+
+        width: 280px;
+
+    }
+
+
+    .about-content h2 {
+
+        font-size: 1.9rem;
+
+    }
+
+
+    .section-title {
+
+        font-size: 12px;
+
+    }
+
+}
