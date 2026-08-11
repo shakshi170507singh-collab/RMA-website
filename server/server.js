@@ -1,3 +1,4 @@
+
 require("dotenv").config();
 
 const express = require("express");
@@ -8,10 +9,6 @@ const connectDB = require("./config/db");
 const attendanceRoutes = require("./routes/attendanceRoutes");
 const eventRoutes = require("./routes/eventRoutes");
 const authRoutes = require("./routes/authRoutes");
-
-// =========================
-// CREATE EXPRESS APP
-// =========================
 
 const app = express();
 
@@ -25,7 +22,16 @@ connectDB();
 // MIDDLEWARE
 // =========================
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "https://rma-association-shakshi170507singh-collabs-projects.vercel.app",
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 
 // =========================
@@ -44,8 +50,7 @@ app.use("/api/auth", authRoutes);
 
 app.get("/", (req, res) => {
   res.json({
-    message:
-      "Ramanujan Maths Association backend is running",
+    message: "Ramanujan Maths Association backend is running",
   });
 });
 
@@ -58,4 +63,3 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
