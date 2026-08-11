@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import "./Attendance.css";
 
-const API = "http://localhost:5000/api";
+const API = "https://rma-website.onrender.com";
 
 function Attendance() {
   const [events, setEvents] = useState([]);
