@@ -25,7 +25,7 @@ connectDB();
 app.use(
   cors({
     origin: [
-      "https://rma-association-shakshi170507singh-collabs-projects.vercel.app",
+      "https://rma-association.vercel.app",
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
