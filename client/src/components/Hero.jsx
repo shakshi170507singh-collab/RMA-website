@@ -50,22 +50,22 @@ function Hero() {
       <section className="stats">
 
         <div className="card">
-          <h2>120+</h2>
+          <h2>40+</h2>
           <p>Members</p>
         </div>
 
         <div className="card">
-          <h2>20+</h2>
+          <h2>4+</h2>
           <p>Events</p>
         </div>
 
         <div className="card">
-          <h2>15+</h2>
+          <h2>10+</h2>
           <p>Workshops</p>
         </div>
 
         <div className="card">
-          <h2>10+</h2>
+          <h2>5+</h2>
           <p>Competitions</p>
         </div>
 

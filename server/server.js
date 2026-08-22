@@ -26,6 +26,7 @@ app.use(
   cors({
     origin: [
       "https://rma-association.vercel.app",
+      "rma-association-81sku3n2f-shakshi170507singh-collabs-projects.vercel.app"
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
