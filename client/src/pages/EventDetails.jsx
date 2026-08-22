@@ -25,9 +25,8 @@ function EventDetails() {
 
         // Fetch the selected event
         const response = await fetch(
-          `http://localhost:5000/api/events/${id}`
-        );
-
+  `${import.meta.env.VITE_API_URL}/api/events/${id}`
+);
         const data = await response.json();
 
         if (!response.ok) {
@@ -41,8 +40,8 @@ function EventDetails() {
 
         // Fetch all events to find its position
         const allEventsResponse = await fetch(
-          "http://localhost:5000/api/events"
-        );
+  `${import.meta.env.VITE_API_URL}/api/events`
+);
 
         const allEvents = await allEventsResponse.json();
 
