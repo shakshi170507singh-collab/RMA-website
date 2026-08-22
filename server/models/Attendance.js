@@ -31,4 +31,16 @@ const attendanceSchema = new mongoose.Schema(
   }
 );
 
+// Prevent the same student from being added twice
+// for the same event
+attendanceSchema.index(
+  {
+    event: 1,
+    registerNumber: 1
+  },
+  {
+    unique: true
+  }
+);
+
 module.exports = mongoose.model("Attendance", attendanceSchema);

@@ -10,19 +10,35 @@ const {
 } = require("../controllers/attendanceController");
 
 
-// Get attendance for an event
+// =========================
+// GET ATTENDANCE FOR EVENT
+// GET /api/attendance/event/:eventId
+// =========================
+
 router.get("/event/:eventId", getAttendance);
 
 
-// Create attendance
+// =========================
+// CREATE ATTENDANCE
+// POST /api/attendance
+// =========================
+
 router.post("/", createAttendance);
 
 
-// Update attendance
+// =========================
+// UPDATE ATTENDANCE
+// PUT /api/attendance/:id
+// =========================
+
 router.put("/:id", updateAttendance);
 
 
-// Delete attendance
+// =========================
+// DELETE ATTENDANCE
+// DELETE /api/attendance/:id
+// =========================
+
 router.delete("/:id", deleteAttendance);
 
 

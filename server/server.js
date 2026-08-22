@@ -1,4 +1,3 @@
-
 require("dotenv").config();
 
 const express = require("express");
@@ -12,11 +11,13 @@ const authRoutes = require("./routes/authRoutes");
 
 const app = express();
 
+
 // =========================
 // CONNECT TO MONGODB
 // =========================
 
 connectDB();
+
 
 // =========================
 // MIDDLEWARE
@@ -26,14 +27,15 @@ app.use(
   cors({
     origin: [
       "https://rma-association.vercel.app",
-      "rma-association-81sku3n2f-shakshi170507singh-collabs-projects.vercel.app"
+      "https://rma-association-81sku3n2f-shakshi170507singh-collabs-projects.vercel.app"
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    credentials: true,
+    credentials: true
   })
 );
 
 app.use(express.json());
+
 
 // =========================
 // ROUTES
@@ -45,15 +47,17 @@ app.use("/api/attendance", attendanceRoutes);
 
 app.use("/api/auth", authRoutes);
 
+
 // =========================
 // TEST ROUTE
 // =========================
 
 app.get("/", (req, res) => {
   res.json({
-    message: "Ramanujan Maths Association backend is running",
+    message: "Ramanujan Maths Association backend is running"
   });
 });
+
 
 // =========================
 // START SERVER

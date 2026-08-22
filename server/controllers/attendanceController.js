@@ -1,6 +1,9 @@
 const Attendance = require("../models/Attendance");
 
-// GET attendance for an event
+// =========================
+// GET ATTENDANCE FOR AN EVENT
+// =========================
+
 const getAttendance = async (req, res) => {
   try {
     const attendance = await Attendance.find({
@@ -10,7 +13,6 @@ const getAttendance = async (req, res) => {
       .sort({ registerNumber: 1 });
 
     res.status(200).json(attendance);
-
   } catch (error) {
     res.status(500).json({
       message: "Failed to fetch attendance",
@@ -20,14 +22,24 @@ const getAttendance = async (req, res) => {
 };
 
 
-// CREATE attendance record
+// =========================
+// CREATE ATTENDANCE
+// =========================
+
 const createAttendance = async (req, res) => {
   try {
     const attendance = await Attendance.create(req.body);
 
     res.status(201).json(attendance);
-
   } catch (error) {
+
+    // Duplicate student for the same event
+    if (error.code === 11000) {
+      return res.status(409).json({
+        message: "This student is already registered for this event"
+      });
+    }
+
     res.status(400).json({
       message: "Failed to create attendance",
       error: error.message
@@ -36,7 +48,10 @@ const createAttendance = async (req, res) => {
 };
 
 
-// UPDATE attendance
+// =========================
+// UPDATE ATTENDANCE
+// =========================
+
 const updateAttendance = async (req, res) => {
   try {
     const attendance = await Attendance.findByIdAndUpdate(
@@ -55,7 +70,6 @@ const updateAttendance = async (req, res) => {
     }
 
     res.status(200).json(attendance);
-
   } catch (error) {
     res.status(400).json({
       message: "Failed to update attendance",
@@ -65,7 +79,10 @@ const updateAttendance = async (req, res) => {
 };
 
 
-// DELETE attendance
+// =========================
+// DELETE ATTENDANCE
+// =========================
+
 const deleteAttendance = async (req, res) => {
   try {
     const attendance = await Attendance.findByIdAndDelete(
@@ -81,7 +98,6 @@ const deleteAttendance = async (req, res) => {
     res.status(200).json({
       message: "Attendance deleted successfully"
     });
-
   } catch (error) {
     res.status(500).json({
       message: "Failed to delete attendance",
@@ -90,6 +106,10 @@ const deleteAttendance = async (req, res) => {
   }
 };
 
+
+// =========================
+// EXPORT CONTROLLERS
+// =========================
 
 module.exports = {
   getAttendance,
