@@ -18,7 +18,7 @@ const signup = async (req, res) => {
     }
 
     // Check admin key
-    if (!process.env.ADMIN_SECRET_KEY) {
+    if (!process.env.JWT_SECRET) {
       console.error("ADMIN_SECRET_KEY is missing from environment variables");
 
       return res.status(500).json({
@@ -26,7 +26,7 @@ const signup = async (req, res) => {
       });
     }
 
-    if (adminKey !== process.env.ADMIN_SECRET_KEY) {
+    if (adminKey !== process.env.JWT_SECRET) {
       return res.status(403).json({
         message: "Invalid admin key"
       });
