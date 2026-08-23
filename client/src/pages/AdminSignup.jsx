@@ -8,7 +8,8 @@ function AdminSignup() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    password: ""
+    password: "",
+    adminKey: ""
   });
 
   const [message, setMessage] = useState("");
@@ -29,7 +30,7 @@ function AdminSignup() {
 
     try {
       const response = await fetch(
-        "`${import.meta.env.VITE_API_URL}/api/auth/signup`",
+        `${import.meta.env.VITE_API_URL}/api/auth/signup`,
         {
           method: "POST",
           headers: {
@@ -130,6 +131,23 @@ function AdminSignup() {
               onChange={handleChange}
               required
               minLength="6"
+            />
+
+          </div>
+
+          {/* ADMIN KEY */}
+
+          <div className="input-group">
+
+            <label>Admin Key</label>
+
+            <input
+              type="password"
+              name="adminKey"
+              placeholder="Enter admin key"
+              value={formData.adminKey}
+              onChange={handleChange}
+              required
             />
 
           </div>

@@ -1,4 +1,3 @@
-
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -9,16 +8,36 @@ const jwt = require("jsonwebtoken");
 
 const signup = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, adminKey } = req.body;
 
-    if (!name || !email || !password) {
+    // Check required fields
+    if (!name || !email || !password || !adminKey) {
       return res.status(400).json({
-        message: "Please provide name, email and password"
+        message: "Please provide name, email, password and admin key"
       });
     }
 
+    // Check admin key
+    if (!process.env.ADMIN_SECRET_KEY) {
+      console.error("ADMIN_SECRET_KEY is missing from environment variables");
+
+      return res.status(500).json({
+        message: "Server configuration error"
+      });
+    }
+
+    if (adminKey !== process.env.ADMIN_SECRET_KEY) {
+      return res.status(403).json({
+        message: "Invalid admin key"
+      });
+    }
+
+    // Clean email
+    const cleanEmail = email.toLowerCase().trim();
+
+    // Check existing user
     const existingUser = await User.findOne({
-      email: email.toLowerCase().trim()
+      email: cleanEmail
     });
 
     if (existingUser) {
@@ -27,11 +46,13 @@ const signup = async (req, res) => {
       });
     }
 
+    // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    // Create admin
     const user = await User.create({
       name: name.trim(),
-      email: email.toLowerCase().trim(),
+      email: cleanEmail,
       password: hashedPassword,
       role: "admin"
     });
@@ -50,8 +71,7 @@ const signup = async (req, res) => {
     console.error("Signup error:", error);
 
     res.status(500).json({
-      message: "Server error",
-      error: error.message
+      message: "Server error"
     });
   }
 };
@@ -83,7 +103,7 @@ const login = async (req, res) => {
       });
     }
 
-    // Make sure this account is actually an admin
+    // Admin only
     if (user.role !== "admin") {
       return res.status(403).json({
         message: "Access denied. Admin account required."
@@ -102,7 +122,7 @@ const login = async (req, res) => {
       });
     }
 
-    // Make sure JWT secret exists
+    // Check JWT secret
     if (!process.env.JWT_SECRET) {
       console.error("JWT_SECRET is missing from environment variables");
 
@@ -114,7 +134,7 @@ const login = async (req, res) => {
     // Create JWT
     const token = jwt.sign(
       {
-        id: user._id,
+        id: user._id.toString(),
         role: user.role
       },
       process.env.JWT_SECRET,
@@ -139,8 +159,7 @@ const login = async (req, res) => {
     console.error("Login error:", error);
 
     res.status(500).json({
-      message: "Server error",
-      error: error.message
+      message: "Server error"
     });
   }
 };
@@ -150,4 +169,3 @@ module.exports = {
   signup,
   login
 };
-
