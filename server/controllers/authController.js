@@ -1,3 +1,4 @@
+
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -16,7 +17,9 @@ const signup = async (req, res) => {
       });
     }
 
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({
+      email: email.toLowerCase().trim()
+    });
 
     if (existingUser) {
       return res.status(400).json({
@@ -27,8 +30,8 @@ const signup = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await User.create({
-      name,
-      email,
+      name: name.trim(),
+      email: email.toLowerCase().trim(),
       password: hashedPassword,
       role: "admin"
     });
@@ -47,7 +50,8 @@ const signup = async (req, res) => {
     console.error("Signup error:", error);
 
     res.status(500).json({
-      message: "Server error"
+      message: "Server error",
+      error: error.message
     });
   }
 };
@@ -61,15 +65,17 @@ const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // 1. Check fields
+    // Check fields
     if (!email || !password) {
       return res.status(400).json({
         message: "Please provide email and password"
       });
     }
 
-    // 2. Find user
-    const user = await User.findOne({ email });
+    // Find user
+    const user = await User.findOne({
+      email: email.toLowerCase().trim()
+    });
 
     if (!user) {
       return res.status(401).json({
@@ -77,7 +83,14 @@ const login = async (req, res) => {
       });
     }
 
-    // 3. Check password
+    // Make sure this account is actually an admin
+    if (user.role !== "admin") {
+      return res.status(403).json({
+        message: "Access denied. Admin account required."
+      });
+    }
+
+    // Check password
     const isPasswordCorrect = await bcrypt.compare(
       password,
       user.password
@@ -89,7 +102,16 @@ const login = async (req, res) => {
       });
     }
 
-    // 4. Create JWT
+    // Make sure JWT secret exists
+    if (!process.env.JWT_SECRET) {
+      console.error("JWT_SECRET is missing from environment variables");
+
+      return res.status(500).json({
+        message: "Server configuration error"
+      });
+    }
+
+    // Create JWT
     const token = jwt.sign(
       {
         id: user._id,
@@ -101,7 +123,7 @@ const login = async (req, res) => {
       }
     );
 
-    // 5. Send response
+    // Send response
     res.status(200).json({
       message: "Login successful",
       token,
@@ -117,7 +139,8 @@ const login = async (req, res) => {
     console.error("Login error:", error);
 
     res.status(500).json({
-      message: "Server error"
+      message: "Server error",
+      error: error.message
     });
   }
 };
@@ -127,3 +150,4 @@ module.exports = {
   signup,
   login
 };
+

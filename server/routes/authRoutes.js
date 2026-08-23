@@ -1,4 +1,6 @@
+
 const express = require("express");
+
 const router = express.Router();
 
 const {
@@ -6,10 +8,33 @@ const {
   login
 } = require("../controllers/authController");
 
-// Signup
-router.post("/signup", signup);
+const adminKeyMiddleware = require("../middleware/adminKeyMiddleware");
 
-// Login
-router.post("/login", login);
+// =========================
+// ADMIN SIGNUP
+// POST /api/auth/signup
+// Requires private admin key
+// =========================
+
+router.post(
+  "/signup",
+  adminKeyMiddleware,
+  signup
+);
+
+
+// =========================
+// ADMIN LOGIN
+// POST /api/auth/login
+// Requires private admin key
+// =========================
+
+router.post(
+  "/login",
+  adminKeyMiddleware,
+  login
+);
+
 
 module.exports = router;
+
