@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Attendance from "./Attendance";
@@ -12,32 +13,57 @@ function Admin() {
   const [eventsLoading, setEventsLoading] = useState(true);
 
   // =========================
+  // CREATE EVENT STATE
+  // =========================
+
+  const [showCreateEvent, setShowCreateEvent] = useState(false);
+
+  const [eventForm, setEventForm] = useState({
+    title: "",
+    description: "",
+    date: "",
+    venue: "",
+    image: "",
+    registrationLink: "",
+    galleryLink: "",
+    status: "upcoming"
+  });
+
+  const [creatingEvent, setCreatingEvent] = useState(false);
+  const [eventMessage, setEventMessage] = useState("");
+
+
+  // =========================
   // FETCH EVENTS
   // =========================
 
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/events`
-        );
+  const fetchEvents = async () => {
+    try {
+      setEventsLoading(true);
 
-        if (!response.ok) {
-          throw new Error("Failed to fetch events");
-        }
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/events`
+      );
 
-        const data = await response.json();
-
-        setEvents(data);
-      } catch (error) {
-        console.error("Admin events error:", error);
-      } finally {
-        setEventsLoading(false);
+      if (!response.ok) {
+        throw new Error("Failed to fetch events");
       }
-    };
 
+      const data = await response.json();
+
+      setEvents(data);
+    } catch (error) {
+      console.error("Admin events error:", error);
+    } finally {
+      setEventsLoading(false);
+    }
+  };
+
+
+  useEffect(() => {
     fetchEvents();
   }, []);
+
 
   // =========================
   // LOGOUT
@@ -49,6 +75,91 @@ function Admin() {
 
     navigate("/admin/login");
   };
+
+
+  // =========================
+  // HANDLE EVENT FORM
+  // =========================
+
+  const handleEventChange = (e) => {
+    const { name, value } = e.target;
+
+    setEventForm({
+      ...eventForm,
+      [name]: value
+    });
+  };
+
+
+  // =========================
+  // CREATE EVENT
+  // =========================
+
+  const handleCreateEvent = async (e) => {
+    e.preventDefault();
+
+    setEventMessage("");
+    setCreatingEvent(true);
+
+    try {
+      const token = localStorage.getItem("adminToken");
+
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/events`,
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+          },
+
+          body: JSON.stringify(eventForm)
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.message || "Failed to create event"
+        );
+      }
+
+      setEventMessage("Event created successfully!");
+
+      // Reset form
+      setEventForm({
+        title: "",
+        description: "",
+        date: "",
+        venue: "",
+        image: "",
+        registrationLink: "",
+        galleryLink: "",
+        status: "upcoming"
+      });
+
+      // Refresh events
+      await fetchEvents();
+
+      // Close form after successful creation
+      setTimeout(() => {
+        setShowCreateEvent(false);
+        setEventMessage("");
+      }, 1200);
+
+    } catch (error) {
+      console.error("Create event error:", error);
+
+      setEventMessage(
+        error.message || "Failed to create event"
+      );
+    } finally {
+      setCreatingEvent(false);
+    }
+  };
+
 
   // =========================
   // RENDER
@@ -68,9 +179,8 @@ function Admin() {
           <span>ADMIN PANEL</span>
         </div>
 
-        <nav className="admin-nav">
 
-          {/* Dashboard */}
+        <nav className="admin-nav">
 
           <button
             className={
@@ -86,7 +196,6 @@ function Admin() {
             Dashboard
           </button>
 
-          {/* Events */}
 
           <button
             className={
@@ -102,7 +211,6 @@ function Admin() {
             Events
           </button>
 
-          {/* Notices */}
 
           <button
             className={
@@ -118,7 +226,6 @@ function Admin() {
             Notices
           </button>
 
-          {/* Attendance */}
 
           <button
             className={
@@ -136,9 +243,8 @@ function Admin() {
 
         </nav>
 
-        <div className="sidebar-bottom">
 
-          {/* View Website */}
+        <div className="sidebar-bottom">
 
           <button
             className="back-site"
@@ -147,7 +253,6 @@ function Admin() {
             ← View Website
           </button>
 
-          {/* Logout */}
 
           <button
             className="logout-btn"
@@ -166,10 +271,6 @@ function Admin() {
       ========================= */}
 
       <main className="admin-main">
-
-        {/* =========================
-            HEADER
-        ========================= */}
 
         <header className="admin-header">
 
@@ -228,8 +329,6 @@ function Admin() {
         {activeSection === "dashboard" && (
 
           <section className="dashboard-content">
-
-            {/* Welcome Card */}
 
             <div className="welcome-card">
 
@@ -347,9 +446,10 @@ function Admin() {
                 {/* Create Event */}
 
                 <button
-                  onClick={() =>
-                    setActiveSection("events")
-                  }
+                  onClick={() => {
+                    setActiveSection("events");
+                    setShowCreateEvent(true);
+                  }}
                 >
 
                   <span>
@@ -463,9 +563,10 @@ function Admin() {
 
               <button
                 className="primary-admin-btn"
-                onClick={() =>
-                  alert("Event creation will be added next.")
-                }
+                onClick={() => {
+                  setEventMessage("");
+                  setShowCreateEvent(true);
+                }}
               >
                 + Create Event
               </button>
@@ -473,103 +574,343 @@ function Admin() {
             </div>
 
 
-            <div className="management-card">
+            {/* =========================
+                CREATE EVENT FORM
+            ========================= */}
 
-              {eventsLoading ? (
+            {showCreateEvent && (
 
-                <div className="empty-state">
+              <div className="management-card">
 
-                  <h3>
-                    Loading events...
-                  </h3>
+                <div className="section-top">
 
-                </div>
+                  <div>
 
-              ) : events.length === 0 ? (
+                    <p className="section-mini-title">
+                      NEW EVENT
+                    </p>
 
-                <div className="empty-state">
+                    <h2>
+                      Create Event
+                    </h2>
 
-                  <div className="empty-icon">
-                    ◈
                   </div>
 
-                  <h3>
-                    No events yet
-                  </h3>
-
-                  <p>
-                    Create your first RMA event.
-                  </p>
-
                   <button
-                    className="primary-admin-btn"
-                    onClick={() =>
-                      alert(
-                        "Event creation will be added next."
-                      )
-                    }
+                    type="button"
+                    className="back-site"
+                    onClick={() => {
+                      setShowCreateEvent(false);
+                      setEventMessage("");
+                    }}
                   >
-                    + Create First Event
+                    Cancel
                   </button>
 
                 </div>
 
-              ) : (
 
-                <div className="admin-event-list">
+                <form
+                  onSubmit={handleCreateEvent}
+                  className="event-form"
+                >
 
-                  {events.map((event) => (
+                  {/* TITLE */}
 
-                    <div
-                      className="admin-event-item"
-                      key={event._id}
+                  <div className="input-group">
+
+                    <label>
+                      Event Title *
+                    </label>
+
+                    <input
+                      type="text"
+                      name="title"
+                      value={eventForm.title}
+                      onChange={handleEventChange}
+                      placeholder="Enter event title"
+                      required
+                    />
+
+                  </div>
+
+
+                  {/* DESCRIPTION */}
+
+                  <div className="input-group">
+
+                    <label>
+                      Description *
+                    </label>
+
+                    <textarea
+                      name="description"
+                      value={eventForm.description}
+                      onChange={handleEventChange}
+                      placeholder="Describe the event"
+                      rows="5"
+                      required
+                    />
+
+                  </div>
+
+
+                  {/* DATE */}
+
+                  <div className="input-group">
+
+                    <label>
+                      Date *
+                    </label>
+
+                    <input
+                      type="date"
+                      name="date"
+                      value={eventForm.date}
+                      onChange={handleEventChange}
+                      required
+                    />
+
+                  </div>
+
+
+                  {/* VENUE */}
+
+                  <div className="input-group">
+
+                    <label>
+                      Venue *
+                    </label>
+
+                    <input
+                      type="text"
+                      name="venue"
+                      value={eventForm.venue}
+                      onChange={handleEventChange}
+                      placeholder="Enter venue"
+                      required
+                    />
+
+                  </div>
+
+
+                  {/* IMAGE */}
+
+                  <div className="input-group">
+
+                    <label>
+                      Image URL
+                    </label>
+
+                    <input
+                      type="url"
+                      name="image"
+                      value={eventForm.image}
+                      onChange={handleEventChange}
+                      placeholder="https://example.com/image.jpg"
+                    />
+
+                  </div>
+
+
+                  {/* REGISTRATION LINK */}
+
+                  <div className="input-group">
+
+                    <label>
+                      Registration Link
+                    </label>
+
+                    <input
+                      type="url"
+                      name="registrationLink"
+                      value={eventForm.registrationLink}
+                      onChange={handleEventChange}
+                      placeholder="https://..."
+                    />
+
+                  </div>
+
+
+                  {/* GALLERY LINK */}
+
+                  <div className="input-group">
+
+                    <label>
+                      Gallery Link
+                    </label>
+
+                    <input
+                      type="url"
+                      name="galleryLink"
+                      value={eventForm.galleryLink}
+                      onChange={handleEventChange}
+                      placeholder="https://..."
+                    />
+
+                  </div>
+
+
+                  {/* STATUS */}
+
+                  <div className="input-group">
+
+                    <label>
+                      Status
+                    </label>
+
+                    <select
+                      name="status"
+                      value={eventForm.status}
+                      onChange={handleEventChange}
                     >
 
-                      <div>
+                      <option value="upcoming">
+                        Upcoming
+                      </option>
 
-                        <strong>
-                          {event.title}
-                        </strong>
+                      <option value="completed">
+                        Completed
+                      </option>
 
-                        <p>
-                          📅{" "}
-                          {new Date(
-                            event.date
-                          ).toLocaleDateString(
-                            "en-IN",
-                            {
-                              day: "numeric",
-                              month: "long",
-                              year: "numeric"
-                            }
-                          )}
-                        </p>
+                    </select>
 
-                        <p>
-                          📍 {event.venue}
-                        </p>
+                  </div>
+
+
+                  {/* MESSAGE */}
+
+                  {eventMessage && (
+
+                    <p className="auth-message">
+                      {eventMessage}
+                    </p>
+
+                  )}
+
+
+                  {/* SUBMIT */}
+
+                  <button
+                    type="submit"
+                    className="primary-admin-btn"
+                    disabled={creatingEvent}
+                  >
+                    {creatingEvent
+                      ? "Creating Event..."
+                      : "Create Event"}
+                  </button>
+
+                </form>
+
+              </div>
+
+            )}
+
+
+            {/* =========================
+                EVENT LIST
+            ========================= */}
+
+            {!showCreateEvent && (
+
+              <div className="management-card">
+
+                {eventsLoading ? (
+
+                  <div className="empty-state">
+
+                    <h3>
+                      Loading events...
+                    </h3>
+
+                  </div>
+
+                ) : events.length === 0 ? (
+
+                  <div className="empty-state">
+
+                    <div className="empty-icon">
+                      ◈
+                    </div>
+
+                    <h3>
+                      No events yet
+                    </h3>
+
+                    <p>
+                      Create your first RMA event.
+                    </p>
+
+                    <button
+                      className="primary-admin-btn"
+                      onClick={() =>
+                        setShowCreateEvent(true)
+                      }
+                    >
+                      + Create First Event
+                    </button>
+
+                  </div>
+
+                ) : (
+
+                  <div className="admin-event-list">
+
+                    {events.map((event) => (
+
+                      <div
+                        className="admin-event-item"
+                        key={event._id}
+                      >
+
+                        <div>
+
+                          <strong>
+                            {event.title}
+                          </strong>
+
+                          <p>
+                            📅{" "}
+                            {new Date(
+                              event.date
+                            ).toLocaleDateString(
+                              "en-IN",
+                              {
+                                day: "numeric",
+                                month: "long",
+                                year: "numeric"
+                              }
+                            )}
+                          </p>
+
+                          <p>
+                            📍 {event.venue}
+                          </p>
+
+                        </div>
+
+                        <span
+                          className={
+                            event.status === "completed"
+                              ? "completed"
+                              : "upcoming"
+                          }
+                        >
+                          {event.status}
+                        </span>
 
                       </div>
 
-                      <span
-                        className={
-                          event.status === "completed"
-                            ? "completed"
-                            : "upcoming"
-                        }
-                      >
-                        {event.status}
-                      </span>
+                    ))}
 
-                    </div>
+                  </div>
 
-                  ))}
+                )}
 
-                </div>
+              </div>
 
-              )}
-
-            </div>
+            )}
 
           </section>
 
@@ -606,7 +947,9 @@ function Admin() {
               <button
                 className="primary-admin-btn"
                 onClick={() =>
-                  alert("Notice management will be added next.")
+                  alert(
+                    "Notice management will be added next."
+                  )
                 }
               >
                 + Create Notice
@@ -667,3 +1010,4 @@ function Admin() {
 }
 
 export default Admin;
+

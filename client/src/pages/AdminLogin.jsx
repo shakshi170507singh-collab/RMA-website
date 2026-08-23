@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Auth.css";
@@ -28,7 +29,7 @@ function AdminLogin() {
 
     try {
       const response = await fetch(
-        "`${import.meta.env.VITE_API_URL}/api/auth/login`",
+        `${import.meta.env.VITE_API_URL}/api/auth/login`,
         {
           method: "POST",
 
@@ -163,3 +164,4 @@ function AdminLogin() {
 }
 
 export default AdminLogin;
+
